@@ -43,17 +43,19 @@ class TestDiscovery(object):
             splash_page = DiscoveryIOSSplashPage(d)
             splash_page.accept_pop_up()
             self.api.alert_slack_success(d.session_id, "TV OS")
-            self.api.reliability(self.hostname, "passed", self.udid, d.session_id)
+            self.api.reliability(
+                self.hostname, "passed", "Test Case Passed", self.udid, d.session_id
+            )
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "TV OS", exc)
                 self.api.reliability(
-                    self.hostname, "failed", self.udid, exc, d.session_id
+                    self.hostname, "failed", exc, self.udid, d.session_id
                 )
             except:
                 self.api.alert_slack_failure("null", "TV OS", exc)
-                self.api.reliability(self.hostname, "failed", self.udid, exc)
+                self.api.reliability(self.hostname, "failed", exc, self.udid)
 
     def test_firetab(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
@@ -66,16 +68,18 @@ class TestDiscovery(object):
             caps = d.capabilities
             udid = caps["deviceUDID"]
             self.api.alert_slack_success(d.session_id, "Fire Tab")
-            self.api.reliability(self.hostname, "passed", udid, d.session_id)
+            self.api.reliability(
+                self.hostname, "passed", "Test Case Passed", udid, d.session_id
+            )
 
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "Fire Tab", exc)
-                self.api.reliability(self.hostname, "failed", udid, exc, d.session_id)
+                self.api.reliability(self.hostname, "failed", exc, udid, d.session_id)
             except:
                 self.api.alert_slack_failure("null", "Fire Tab", exc)
-                self.api.reliability(self.hostname, "failed", udid, exc)
+                self.api.reliability(self.hostname, "failed", exc)
 
     def test_firetv(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
@@ -87,16 +91,18 @@ class TestDiscovery(object):
             caps = d.capabilities
             udid = caps["deviceUDID"]
             self.api.alert_slack_success(d.session_id, "Fire TV")
-            self.api.reliability(self.hostname, "passed", udid, d.session_id)
+            self.api.reliability(
+                self.hostname, "passed", "Test Case Passed", udid, d.session_id
+            )
 
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "Fire TV", exc)
-                self.api.reliability(self.hostname, "failed", udid, exc, d.session_id)
+                self.api.reliability(self.hostname, "failed", exc, udid, d.session_id)
             except:
                 self.api.alert_slack_failure("null", "Fire TV", exc)
-                self.api.reliability(self.hostname, "failed", udid, exc)
+                self.api.reliability(self.hostname, "failed", exc)
 
     def test_ios_us(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
@@ -107,14 +113,16 @@ class TestDiscovery(object):
             splash_page = DiscoveryIOSSplashPage(d)
             splash_page.verify_region()
             self.api.alert_slack_success(d.session_id, "TV OS")
-            self.api.reliability(self.hostname, "passed", self.udid, d.session_id)
+            self.api.reliability(
+                self.hostname, "passed", "Test Case Passed", self.udid, d.session_id
+            )
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "TV OS", exc)
                 self.api.reliability(
-                    self.hostname, "failed", self.udid, exc, d.session_id
+                    self.hostname, "failed", exc, self.udid, d.session_id
                 )
             except:
                 self.api.alert_slack_failure("null", "TV OS", exc)
-                self.api.reliability(self.hostname, "failed", self.udid, exc)
+                self.api.reliability(self.hostname, "failed", exc, self.udid)

@@ -102,7 +102,7 @@ class HS_API:
             print("Error starting capture....\n")
             pytest.raises(Exception)
 
-    def reliability(self, hostname, status, device_id, message, session_id=None):
+    def reliability(self, hostname, status, message, device_id=None, session_id=None):
         request_url = self.url_root + "reliability/report-status"
         payload = {}
         if session_id != None:
