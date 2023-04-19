@@ -39,17 +39,16 @@ class TestDiscovery(object):
 
             splash_page = DiscoveryIOSSplashPage(d)
             splash_page.accept_pop_up()
-            self.api.alert_slack_success(d.session_id, "TVOS")
+            self.api.alert_slack_success(d.session_id, "TV OS")
         except Exception as exc:
             # failure
             try:
-                self.api.alert_slack_failure(d.session_id, "TVOS", exc)
+                self.api.alert_slack_failure(d.session_id, "TV OS", exc)
             except:
-                self.api.alert_slack_failure("null", "TVOS", exc)
+                self.api.alert_slack_failure("null", "TV OS", exc)
 
     def test_firetab(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
-
         try:
             d: webdriver.Remote = make_driver("discovery_firetab_tv")
 
