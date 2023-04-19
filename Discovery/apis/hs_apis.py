@@ -24,16 +24,16 @@ class HS_API:
         self.headers["Authorization"] = "Bearer {}".format(api_token)
         self.device_address = device_address
 
-    def alert_slack_success(self, session_id):
-        request_url = "https://hooks.slack.com/services/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"
+    def alert_slack_success(self, session_id, type):
+        request_url = "https://hooks.slack.com/services/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"
         payload = {
             "blocks": [
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "✅ Test Case Passed:\n*<https://ui.headspin.io/sessions/{}/waterfall>*".format(
-                            session_id
+                        "text": "✅ {} Test Case Passed:\n*<https://ui.headspin.io/sessions/{}/waterfall>*".format(
+                            type, session_id
                         ),
                     },
                 },

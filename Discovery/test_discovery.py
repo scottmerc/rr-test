@@ -40,7 +40,7 @@ class TestDiscovery(object):
         time.sleep(10)
         time.sleep(5)
 
-        self.api.alert_slack_success(d.session_id)
+        self.api.alert_slack_success("TVOS", d.session_id)
 
         # self.api.upload_results(
         #     d.session_id, "Passed", "28e545db-2e8b-4867-83e3-e812a168766d"
