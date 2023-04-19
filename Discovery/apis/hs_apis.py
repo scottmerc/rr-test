@@ -25,6 +25,7 @@ class HS_API:
         self.headers["Authorization"] = "Bearer {}".format(api_token)
         self.device_address = device_address
         self.webhook = os.getenv("WEBHOOK")
+        self.host = os.getenv("HOSTNAME")
 
     def alert_slack_success(self, session_id, type):
         request_url = self.webhook
@@ -34,8 +35,8 @@ class HS_API:
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "✅ {} Test Case Passed:\n*<https://ui.headspin.io/sessions/{}/waterfall>*".format(
-                            type, session_id
+                        "text": "✅ {} Test Case Passed:\nHost:{}\nSession URL: *<https://ui.headspin.io/sessions/{}/waterfall>*".format(
+                            type, self.host, session_id
                         ),
                     },
                 },
@@ -56,8 +57,8 @@ class HS_API:
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "⛔️ {} Test Case Failed:\n*<https://ui.headspin.io/sessions/{}/waterfall>*\n{}".format(
-                            type, session_id, exceptions
+                        "text": "⛔️ {} Test Case Failed:\nHost: {}\nSession URL: *<https://ui.headspin.io/sessions/{}/waterfall>*\n{}".format(
+                            type, self.host, session_id, exceptions
                         ),
                     },
                 },
