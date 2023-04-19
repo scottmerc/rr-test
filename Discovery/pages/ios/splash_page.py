@@ -11,6 +11,10 @@ class DiscoveryIOSSplashPage(BasePage):
 
     Accept = (MobileBy.XPATH, '//XCUIElementTypeButton[@name="Allow"]')
     Later = (MobileBy.ACCESSIBILITY_ID, "networkLogo")
+    Region = (
+        MobileBy.ACCESSIBILITY_ID,
+        "This app is only supported in the U S and certain U S territories.",
+    )
 
     def accept_pop_up(self: "DiscoveryIOSSplashPage") -> None:
         try:
@@ -19,3 +23,10 @@ class DiscoveryIOSSplashPage(BasePage):
             pass
         finally:
             self.long_wait(self.Later)
+
+    def verify_region(self: "DiscoveryIOSSplashPage") -> None:
+        try:
+            self.wait(self.Accept).click()
+        except:
+            pass
+        self.wait(self.Region)

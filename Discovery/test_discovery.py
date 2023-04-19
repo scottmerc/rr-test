@@ -77,3 +77,19 @@ class TestDiscovery(object):
                 self.api.alert_slack_failure(d.session_id, "Fire TV", exc)
             except:
                 self.api.alert_slack_failure("null", "Fire TV", exc)
+
+    def test_ios_us(self: "TestDiscovery", make_driver: MakeDriver) -> None:
+        ## Driver Creation
+
+        try:
+            d: webdriver.Remote = make_driver("discovery_ios_2")
+
+            splash_page = DiscoveryIOSSplashPage(d)
+            splash_page.verify_region()
+            self.api.alert_slack_success(d.session_id, "TV OS")
+        except Exception as exc:
+            # failure
+            try:
+                self.api.alert_slack_failure(d.session_id, "TV OS", exc)
+            except:
+                self.api.alert_slack_failure("null", "TV OS", exc)

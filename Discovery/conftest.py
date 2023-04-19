@@ -61,6 +61,24 @@ DISCOVERY_IOS_CAPS = {
     # "headspin:capture.ignoreHosts": [".*"],
 }
 
+DISCOVERY_IOS_2_CAPS = {
+    "appium:deviceName": "Apple TV 4K",
+    "appium:udid": udid,
+    "appium:automationName": "xcuitest",
+    "appium:platformVersion": "16.4",
+    "platformName": "tvos",
+    "appium:bundleId": "com.discovery.mobile.enterprise.tlc",
+    "headspin:capture.video": True,
+    "headspin:network.regionalRouting": "eu-west-2",
+    # "appium:noReset": True,
+    # "headspin:app.id": "2e78112c3e7c4c69911d9bc1402ee9f9",
+    # "headspin:controlLock": True,
+    "newCommandTimeout": 300,
+    "appium:autoAcceptAlerts": True,
+    # "headspin:selector": {"host": host}
+    # "headspin:capture.ignoreHosts": [".*"],
+}
+
 DISCOVERY_FIRETAB_CAPS = {
     "appium:deviceName": "Fire Tab",
     "headspin:capture.video": True,
@@ -107,6 +125,9 @@ def make_driver() -> webdriver.Remote:
             )
         elif app == "discovery_ios":
             caps = DISCOVERY_IOS_CAPS
+            url = "https://appium-dev.headspin.io:443/v0/{}/wd/hub".format(api_token)
+        elif app == "discovery_ios_2":
+            caps = DISCOVERY_IOS_2_CAPS
             url = "https://appium-dev.headspin.io:443/v0/{}/wd/hub".format(api_token)
         elif app == "discovery_fire_tv":
             caps = DISCOVERY_FIRETV_CAPS
