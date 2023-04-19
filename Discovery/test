@@ -1,0 +1,1 @@
+curl -X POST https://04015c97362a4458847cce0a9c1f1fe4@api-dev.headspin.io/v0/sessions -d '{"session_type": "capture","device_address": "00008020-000175411E90003A@dev-us-pao-5-proxy-38-mac.headspin.io", "network_keep_in_session_patterns": true}'
