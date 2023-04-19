@@ -73,9 +73,22 @@ DISCOVERY_FIRETAB_CAPS = {
     "appium:appPackage": "com.amazon.cloud9",
     "platformName": "Android",
     "appium:appActivity": "com.amazon.cloud9.browsing.BrowserActivity",
-    "headspin:selector": {"host": host, "model": "KFONWI"}
+    "headspin:selector": {"host": host, "model": "KFONWI", "model": "KFKAWI"}
     # "headspin:controlLock": True,
     # "headspin:capture.ignoreHosts": [".*"],
+}
+
+DISCOVERY_FIRETV_CAPS = {
+    "appium:deviceName": "AFTMM",
+    #   "appium:udid": "G070VM2420620JBT",
+    "appium:automationName": "uiautomator2",
+    "appium:appPackage": "com.discovery.discoplus",
+    "platformName": "android",
+    "headspin:app.id": "81f82f92-9979-4b23-95cb-22016e54dd04",
+    "headspin:network.regionalRouting": "gb-lhr",
+    "headspin:capture.video": True,
+    "appium:newCommandTimeout": 300,
+    "headspin:selector": {"host": host, "model": "AFTMM"},
 }
 
 
@@ -93,9 +106,9 @@ def make_driver() -> webdriver.Remote:
         elif app == "discovery_ios":
             caps = DISCOVERY_IOS_CAPS
             url = "https://appium-dev.headspin.io:443/v0/{}/wd/hub".format(api_token)
-        # elif app == "discovery_android_tv":
-        #     caps = DISCOVERY_ANDROID_TV_CAPS
-        #     url = "https://appium-dev.headspin.io:443/v0/{}/wd/hub".format(api_token)
+        elif app == "discovery_fire_tv":
+            caps = DISCOVERY_FIRETV_CAPS
+            url = "https://appium-dev.headspin.io:443/v0/{}/wd/hub".format(api_token)
         elif app == "discovery_firetab_tv":
             caps = DISCOVERY_FIRETAB_CAPS
             url = "https://appium-dev.headspin.io:443/v0/{}/wd/hub".format(api_token)

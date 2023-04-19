@@ -13,6 +13,9 @@ class DiscoveryAndroidSplashPage(BasePage):
     )
     Address = (MobileBy.ACCESSIBILITY_ID, "Address Bar")
 
+    OK = (MobileBy.ID, "com.discovery.discoplus:id/okbutton")
+    LOGO = (MobileBy.ID, "com.discovery.discoplus:id/toolbarLogo")
+
     def navigate_to_ip(self: "DiscoveryAndroidSplashPage") -> None:
         ADDRESS = self.long_wait(self.Address)
         ADDRESS.click()
@@ -21,3 +24,7 @@ class DiscoveryAndroidSplashPage(BasePage):
         LOCATION = self.long_wait(self.TEXT)
         print(LOCATION.text)
         return LOCATION.text
+
+    def validate_tv(self: "DiscoveryAndroidSplashPage") -> None:
+        self.long_wait(self.OK).click()
+        self.long_wait(self.LOGO)

@@ -62,3 +62,18 @@ class TestDiscovery(object):
                 self.api.alert_slack_failure(d.session_id, "Fire Tab", exc)
             except:
                 self.api.alert_slack_failure("null", "Fire Tab", exc)
+
+    def test_firetv(self: "TestDiscovery", make_driver: MakeDriver) -> None:
+        ## Driver Creation
+        try:
+            d: webdriver.Remote = make_driver("discovery_fire_tv")
+
+            splash_page = DiscoveryAndroidSplashPage(d)
+            splash_page.validate_tv()
+            self.api.alert_slack_success(d.session_id, "Fire TV")
+        except Exception as exc:
+            # failure
+            try:
+                self.api.alert_slack_failure(d.session_id, "Fire TV", exc)
+            except:
+                self.api.alert_slack_failure("null", "Fire TV", exc)
