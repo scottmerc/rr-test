@@ -73,7 +73,8 @@ DISCOVERY_FIRETAB_CAPS = {
     "appium:appPackage": "com.amazon.cloud9",
     "platformName": "Android",
     "appium:appActivity": "com.amazon.cloud9.browsing.BrowserActivity",
-    "headspin:selector": {"host": host, "model": "KFONWI"}
+    "headspin:selector": {"host": host, "model": "KFONWI"},
+    "headspin:deviceStrategy": "random"
     # "headspin:controlLock": True,
     # "headspin:capture.ignoreHosts": [".*"],
 }
@@ -89,6 +90,7 @@ DISCOVERY_FIRETV_CAPS = {
     "headspin:capture.video": True,
     "appium:newCommandTimeout": 300,
     "headspin:selector": {"host": host, "model": "AFTMM"},
+    "headspin:deviceStrategy": "random",
 }
 
 
