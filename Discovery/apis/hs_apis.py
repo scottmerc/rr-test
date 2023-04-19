@@ -6,6 +6,7 @@ import datetime
 import pytest
 import time
 import calendar
+import os
 from datetime import timedelta
 
 from apis.hs_logger import logger, setup_logger
@@ -23,9 +24,10 @@ class HS_API:
         self.headers = {}
         self.headers["Authorization"] = "Bearer {}".format(api_token)
         self.device_address = device_address
+        self.webhook = os.getenv("WEBHOOK")
 
     def alert_slack_success(self, session_id, type):
-        request_url = "https://hooks.slack.com/services/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"
+        request_url = self.webhook
         payload = {
             "blocks": [
                 {
@@ -47,7 +49,7 @@ class HS_API:
         print(response)
 
     def alert_slack_failure(self, session_id, type, exceptions):
-        request_url = "https://hooks.slack.com/services/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"
+        request_url = self.webhook
         payload = {
             "blocks": [
                 {
