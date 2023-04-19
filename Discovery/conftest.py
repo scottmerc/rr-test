@@ -73,7 +73,7 @@ DISCOVERY_FIRETAB_CAPS = {
     "appium:appPackage": "com.amazon.cloud9",
     "platformName": "Android",
     "appium:appActivity": "com.amazon.cloud9.browsing.BrowserActivity",
-    "headspin:selector": {"host": host, "model": "KFONWI", "model": "KFKAWI"}
+    "headspin:selector": {"host": host, "model": "KFONWI"}
     # "headspin:controlLock": True,
     # "headspin:capture.ignoreHosts": [".*"],
 }
