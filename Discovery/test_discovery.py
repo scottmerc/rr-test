@@ -33,15 +33,18 @@ class TestDiscovery(object):
 
     def test_ios(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
-        d: webdriver.Remote = make_driver("discovery_ios")
 
-        splash_page = DiscoveryIOSSplashPage(d)
-        splash_page.accept_pop_up()
-        time.sleep(10)
-        time.sleep(5)
+        try:
+            d: webdriver.Remote = make_driver("discovery_ios")
 
-        self.api.alert_slack_success("TVOS", d.session_id)
-
-        # self.api.upload_results(
-        #     d.session_id, "Passed", "28e545db-2e8b-4867-83e3-e812a168766d"
-        # )
+            splash_page = DiscoveryIOSSplashPage(d)
+            splash_page.accept_pop_up()
+            time.sleep(10)
+            time.sleep(5)
+            self.api.alert_slack_success(d.session_id, "TVOS")
+        except Exception as exc:
+            # failure
+            try:
+                self.api.alert_slack_failure(d.session_id, "TVOS", exc)
+            except:
+                self.api.alert_slack_failure("null", "TVOS", exc)

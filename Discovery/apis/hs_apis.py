@@ -25,7 +25,7 @@ class HS_API:
         self.device_address = device_address
 
     def alert_slack_success(self, session_id, type):
-        request_url = "https://hooks.slack.com/services/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"
+        request_url = "https://hooks.slack.com/services/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"
         payload = {
             "blocks": [
                 {
@@ -44,6 +44,29 @@ class HS_API:
             request_url,
             data=payload,
         )
+        print(response)
+
+    def alert_slack_failure(self, session_id, type, exceptions):
+        request_url = "https://hooks.slack.com/services/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"
+        payload = {
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "⛔️ {} Test Case Failed:\n*<https://ui.headspin.io/sessions/{}/waterfall>*\n{}".format(
+                            type, session_id, exceptions
+                        ),
+                    },
+                },
+            ]
+        }
+        payload = json.dumps(payload)
+        response = requests.post(
+            request_url,
+            data=payload,
+        )
+        print(response)
 
     def upload_image(self, imageBase64):
         url_root = "https://api.upload.io/v2/accounts/kW15bF8/uploads/binary"
