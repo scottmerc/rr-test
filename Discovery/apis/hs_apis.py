@@ -102,6 +102,21 @@ class HS_API:
             print("Error starting capture....\n")
             pytest.raises(Exception)
 
+    def reliability(self, hostname, status, device_id, message, session_id=None):
+        request_url = self.url_root + "reliability/report-status"
+        payload = {}
+        if session_id != None:
+            payload["session_id"] = session_id
+        payload["hostname"] = hostname
+        payload["status"] = status
+        payload["device_id"] = device_id
+        payload["message"] = message
+        payload = json.dumps(payload)
+        response = requests.post(
+            request_url, headers=self.headers, data=payload, verify=False
+        )
+        print(response)
+
     # STOP A PERFORMANCE SESSION PROGRAMATICALLY
     def stop_session(self, session_id):
         request_url = self.url_root + "sessions/{}".format(session_id)

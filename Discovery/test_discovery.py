@@ -1,5 +1,6 @@
 import os
 import time
+import json
 from datetime import datetime
 from appium import webdriver
 from conftest import MakeDriver
@@ -27,6 +28,8 @@ from apis.hs_logger import logger, setup_logger
 class TestDiscovery(object):
 
     api_token = os.getenv("HS_API_TOKEN")
+    hostname = os.getenv("HOSTNAME")
+    udid = os.getenv("UDID")
     api = HS_API(api_token)
     now = datetime.now()
     date_time = now.strftime("%b-%d-%Y, %H:%M:%S")
@@ -40,12 +43,17 @@ class TestDiscovery(object):
             splash_page = DiscoveryIOSSplashPage(d)
             splash_page.accept_pop_up()
             self.api.alert_slack_success(d.session_id, "TV OS")
+            self.api.reliability(self.hostname, "passed", self.udid, d.session_id)
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "TV OS", exc)
+                self.api.reliability(
+                    self.hostname, "failed", self.udid, exc, d.session_id
+                )
             except:
                 self.api.alert_slack_failure("null", "TV OS", exc)
+                self.api.reliability(self.hostname, "failed", self.udid, exc)
 
     def test_firetab(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
@@ -55,13 +63,19 @@ class TestDiscovery(object):
             splash_page = DiscoveryAndroidSplashPage(d)
             location = splash_page.navigate_to_ip()
             assert location == "London"
+            caps = d.capabilities
+            udid = caps["deviceUDID"]
             self.api.alert_slack_success(d.session_id, "Fire Tab")
+            self.api.reliability(self.hostname, "passed", udid, d.session_id)
+
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "Fire Tab", exc)
+                self.api.reliability(self.hostname, "failed", udid, exc, d.session_id)
             except:
                 self.api.alert_slack_failure("null", "Fire Tab", exc)
+                self.api.reliability(self.hostname, "failed", udid, exc)
 
     def test_firetv(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
@@ -70,13 +84,19 @@ class TestDiscovery(object):
 
             splash_page = DiscoveryAndroidSplashPage(d)
             splash_page.validate_tv()
+            caps = d.capabilities
+            udid = caps["deviceUDID"]
             self.api.alert_slack_success(d.session_id, "Fire TV")
+            self.api.reliability(self.hostname, "passed", udid, d.session_id)
+
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "Fire TV", exc)
+                self.api.reliability(self.hostname, "failed", udid, exc, d.session_id)
             except:
                 self.api.alert_slack_failure("null", "Fire TV", exc)
+                self.api.reliability(self.hostname, "failed", udid, exc)
 
     def test_ios_us(self: "TestDiscovery", make_driver: MakeDriver) -> None:
         ## Driver Creation
@@ -87,9 +107,14 @@ class TestDiscovery(object):
             splash_page = DiscoveryIOSSplashPage(d)
             splash_page.verify_region()
             self.api.alert_slack_success(d.session_id, "TV OS")
+            self.api.reliability(self.hostname, "passed", self.udid, d.session_id)
         except Exception as exc:
             # failure
             try:
                 self.api.alert_slack_failure(d.session_id, "TV OS", exc)
+                self.api.reliability(
+                    self.hostname, "failed", self.udid, exc, d.session_id
+                )
             except:
                 self.api.alert_slack_failure("null", "TV OS", exc)
+                self.api.reliability(self.hostname, "failed", self.udid, exc)
