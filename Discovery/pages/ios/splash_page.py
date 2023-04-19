@@ -13,5 +13,9 @@ class DiscoveryIOSSplashPage(BasePage):
     Later = (MobileBy.ACCESSIBILITY_ID, "networkLogo")
 
     def accept_pop_up(self: "DiscoveryIOSSplashPage") -> None:
-        # self.long_wait(self.Accept).click()
-        self.long_wait(self.Later)
+        try:
+            self.wait(self.Accept).click()
+        except:
+            pass
+        finally:
+            self.long_wait(self.Later)
