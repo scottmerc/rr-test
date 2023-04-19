@@ -25,7 +25,7 @@ class HS_API:
         self.device_address = device_address
 
     def alert_slack_success(self, session_id, type):
-        request_url = "https://hooks.slack.com/services/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"
+        request_url = "https://hooks.slack.com/services/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"
         payload = {
             "blocks": [
                 {
@@ -47,7 +47,7 @@ class HS_API:
         print(response)
 
     def alert_slack_failure(self, session_id, type, exceptions):
-        request_url = "https://hooks.slack.com/services/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"
+        request_url = "https://hooks.slack.com/services/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"
         payload = {
             "blocks": [
                 {

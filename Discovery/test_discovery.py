@@ -39,8 +39,6 @@ class TestDiscovery(object):
 
             splash_page = DiscoveryIOSSplashPage(d)
             splash_page.accept_pop_up()
-            time.sleep(10)
-            time.sleep(5)
             self.api.alert_slack_success(d.session_id, "TVOS")
         except Exception as exc:
             # failure
@@ -48,3 +46,20 @@ class TestDiscovery(object):
                 self.api.alert_slack_failure(d.session_id, "TVOS", exc)
             except:
                 self.api.alert_slack_failure("null", "TVOS", exc)
+
+    def test_firetab(self: "TestDiscovery", make_driver: MakeDriver) -> None:
+        ## Driver Creation
+
+        try:
+            d: webdriver.Remote = make_driver("discovery_firetab_tv")
+
+            splash_page = DiscoveryAndroidSplashPage(d)
+            location = splash_page.navigate_to_ip()
+            assert location == "London"
+            self.api.alert_slack_success(d.session_id, "Fire Tab")
+        except Exception as exc:
+            # failure
+            try:
+                self.api.alert_slack_failure(d.session_id, "Fire Tab", exc)
+            except:
+                self.api.alert_slack_failure("null", "Fire Tab", exc)

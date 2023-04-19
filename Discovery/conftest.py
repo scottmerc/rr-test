@@ -13,6 +13,7 @@ setup_logger(logger, logging.DEBUG)
 
 api_token = os.getenv("HS_API_TOKEN")
 host = os.getenv("HOSTNAME")
+udid = os.getenv("UDID")
 
 MakeDriver = Callable[[str], webdriver.Remote]
 
@@ -44,7 +45,7 @@ DISCOVERY_ANDROID_CAPS = {
 
 DISCOVERY_IOS_CAPS = {
     "appium:deviceName": "Apple TV 4K",
-    "appium:udid": "99ff9bdd142aec39d5bf86ec3c8a29d508aa9133",
+    "appium:udid": udid,
     "appium:automationName": "xcuitest",
     "appium:platformVersion": "16.4",
     "platformName": "tvos",
@@ -56,22 +57,23 @@ DISCOVERY_IOS_CAPS = {
     # "headspin:controlLock": True,
     "newCommandTimeout": 300,
     "appium:autoAcceptAlerts": True,
-    "headspin:selector": {"host": host}
+    # "headspin:selector": {"host": host}
     # "headspin:capture.ignoreHosts": [".*"],
 }
 
 DISCOVERY_FIRETAB_CAPS = {
     "appium:deviceName": "Fire Tab",
     "headspin:capture.video": True,
-    "headspin:network.regionalRouting": "us-west-1",
-    "appium:udid": "GCC19D06212208W0",
+    "headspin:network.regionalRouting": "eu-west-2",
+    # "appium:udid": "GCC19D062122091Q",
     "appium:autoAcceptAlerts": False,
     "appium:automationName": "Appium",
     "headspin:newCommandTimeout": 300,
     "appium:newCommandTimeout": 300,
-    "appium:appPackage": "com.hbo.hbonow",
+    "appium:appPackage": "com.amazon.cloud9",
     "platformName": "Android",
-    "appium:appActivity": "com.wbd.stream.MainActivity",
+    "appium:appActivity": "com.amazon.cloud9.browsing.BrowserActivity",
+    "headspin:selector": {"host": host}
     # "headspin:controlLock": True,
     # "headspin:capture.ignoreHosts": [".*"],
 }
