@@ -72,20 +72,23 @@ class SUITEST_API:
         request_url = self.webhook
         payload = {
             "blocks": [
-                {"type": "divider"},
                 {
                     "type": "section",
-                    "text": {"type": "mrkdwn", "text": "🚨Suitest Device Offline🚨"},
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "*Device Name*: {}".format(name),
+                    },
                 },
                 {
                     "type": "section",
                     "fields": [
-                        {"type": "mrkdwn", "text": "*Device Name:*\n{}".format(name)},
-                        {"type": "mrkdwn", "text": "*Status:*\n{}".format(status)},
-                        {"type": "mrkdwn", "text": "*IP Address:*\n{}".format(ip)},
+                        {"type": "mrkdwn", "text": "*Status:* {}".format(status)},
+                        {
+                            "type": "mrkdwn",
+                            "text": "*IP Address:* {}".format(ip),
+                        },
                     ],
                 },
-                {"type": "divider"},
             ]
         }
         payload = json.dumps(payload)
