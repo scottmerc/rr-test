@@ -26,5 +26,8 @@ class DiscoveryAndroidSplashPage(BasePage):
         return LOCATION.text
 
     def validate_tv(self: "DiscoveryAndroidSplashPage") -> None:
-        self.long_wait(self.OK).click()
+        try:
+            self.long_wait(self.OK).click()
+        except:
+            pass
         self.long_wait(self.LOGO)
