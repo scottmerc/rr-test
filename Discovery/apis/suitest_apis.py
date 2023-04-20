@@ -8,6 +8,7 @@ import time
 import calendar
 import os
 from datetime import timedelta
+from tabulate import tabulate
 
 
 class SUITEST_API:
@@ -19,7 +20,7 @@ class SUITEST_API:
         self.headers["accept"] = "application/json"
         self.webhook = os.getenv("WEBHOOK")
 
-    def devices(self):
+    def devices(self, table):
         request_url = self.url_root + "/devices?limit=100"
         r = requests.get(request_url, headers=self.headers)
         response = json.loads(r.text)
@@ -31,18 +32,11 @@ class SUITEST_API:
                     and items["status"] != "CONTROLLABLE"
                     and items["status"] != "API_CONTROLLED"
                 ):
-                    print(
-                        "Device Name: {} Status: {} IP: {}".format(
-                            items["customName"], items["status"], items["ipAddress"]
-                        )
-                    )
-                    ## Send Slack Message
-                    self.alert_slack(
-                        items["customName"], items["status"], items["ipAddress"]
-                    )
-        return response["next"]
+                    temp = [items["customName"], items["status"], items["ipAddress"]]
+                    table.append(temp)
+        return response["next"], table
 
-    def devices_follow(self, url):
+    def devices_follow(self, url, table):
         request_url = url
         r = requests.get(request_url, headers=self.headers)
         response = json.loads(r.text)
@@ -54,43 +48,16 @@ class SUITEST_API:
                     and items["status"] != "CONTROLLABLE"
                     and items["status"] != "API_CONTROLLED"
                 ):
-                    print(
-                        "Device Name: {} Status: {} IP: {}".format(
-                            items["customName"], items["status"], items["ipAddress"]
-                        )
-                    )
-                    ### Send Slack Message
-                    self.alert_slack(
-                        items["customName"], items["status"], items["ipAddress"]
-                    )
+                    temp = [items["customName"], items["status"], items["ipAddress"]]
+                    table.append(temp)
         if "next" in response.keys():
-            return response["next"]
+            return response["next"], table
         else:
-            return "done"
+            return "done", table
 
-    def alert_slack(self, name, status, ip):
+    def alert_slack(self, text):
         request_url = self.webhook
-        payload = {
-            "blocks": [
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": "*Device Name*: {}".format(name),
-                    },
-                },
-                {
-                    "type": "section",
-                    "fields": [
-                        {"type": "mrkdwn", "text": "*Status:* {}".format(status)},
-                        {
-                            "type": "mrkdwn",
-                            "text": "*IP Address:* {}".format(ip),
-                        },
-                    ],
-                },
-            ]
-        }
+        payload = {"text": "```{}```".format(text)}
         payload = json.dumps(payload)
         response = requests.post(
             request_url,
