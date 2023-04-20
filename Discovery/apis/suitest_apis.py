@@ -26,7 +26,11 @@ class SUITEST_API:
         values = response["values"]
         for items in values:
             if "HS-" in items["customName"]:
-                if items["status"] != "READY" and items["status"] != "CONTROLLABLE":
+                if (
+                    items["status"] != "READY"
+                    and items["status"] != "CONTROLLABLE"
+                    and items["status"] != "API_CONTROLLED"
+                ):
                     print(
                         "Device Name: {} Status: {} IP: {}".format(
                             items["customName"], items["status"], items["ipAddress"]
@@ -45,7 +49,11 @@ class SUITEST_API:
         values = response["values"]
         for items in values:
             if "HS-" in items["customName"]:
-                if items["status"] != "READY" and items["status"] != "CONTROLLABLE":
+                if (
+                    items["status"] != "READY"
+                    and items["status"] != "CONTROLLABLE"
+                    and items["status"] != "API_CONTROLLED"
+                ):
                     print(
                         "Device Name: {} Status: {} IP: {}".format(
                             items["customName"], items["status"], items["ipAddress"]
