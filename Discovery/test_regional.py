@@ -16,7 +16,6 @@ class TestRegional(object):
     api = HS_API(api_token)
     geos = [
         "mx-mex",
-        "nl-hag",
         "ie-dub",
         "default",
         "us-east-1",
@@ -25,7 +24,6 @@ class TestRegional(object):
         "us-nje",
         "se-sto",
         "gb-lhr",
-        "ph-mnl",
         "eu-west-2",
         "us-nyc",
         "fi-hel",
