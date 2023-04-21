@@ -71,6 +71,45 @@ class HS_API:
         )
         print(response)
 
+    def lock_devices(self, hostname, model):
+        selector = "hostname:{}+model:{}".format(hostname, model)
+        request_url = self.url_root + "devices/{}/lock".format(selector)
+        response = requests.post(request_url, headers=self.headers, verify=False)
+        if response.status_code == 200:
+            return json.loads(response.text)
+        else:
+            return False
+
+    def unlock_devices(self, hostname, model, all=False):
+        request_url = self.url_root + "devices/unlock"
+        if all == False:
+            payload = {}
+            payload["hostname"] = hostname
+            payload["model"] = model
+            payload = json.dumps(payload)
+            response = requests.post(
+                request_url, headers=self.headers, data=payload, verify=False
+            )
+        else:
+            response = requests.post(request_url, headers=self.headers, verify=False)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+
+    def regional_routing(self, device_address, geo):
+        request_url = self.url_root + "network/{}/tunnel".format(device_address)
+        payload = {}
+        payload["geo"] = geo
+        payload = json.dumps(payload)
+        response = requests.post(
+            request_url, headers=self.headers, data=payload, verify=False
+        )
+        if response.status_code == 200:
+            return True, response.text
+        else:
+            return False, response.text
+
     def upload_image(self, imageBase64):
         url_root = "https://api.upload.io/v2/accounts/kW15bF8/uploads/binary"
         headers = {}
@@ -115,7 +154,7 @@ class HS_API:
         response = requests.post(
             request_url, headers=self.headers, data=payload, verify=False
         )
-        print(response)
+        logger.info(response.status_code)
 
     # STOP A PERFORMANCE SESSION PROGRAMATICALLY
     def stop_session(self, session_id):

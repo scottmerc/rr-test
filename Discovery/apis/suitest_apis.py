@@ -32,7 +32,11 @@ class SUITEST_API:
                     and items["status"] != "CONTROLLABLE"
                     and items["status"] != "API_CONTROLLED"
                 ):
-                    temp = [items["customName"], items["status"], items["ipAddress"]]
+                    temp = [
+                        items["customName"],
+                        items["status"],
+                        items["ipAddress"],
+                    ]
                     table.append(temp)
         return response["next"], table
 
@@ -48,7 +52,11 @@ class SUITEST_API:
                     and items["status"] != "CONTROLLABLE"
                     and items["status"] != "API_CONTROLLED"
                 ):
-                    temp = [items["customName"], items["status"], items["ipAddress"]]
+                    temp = [
+                        items["customName"],
+                        items["status"],
+                        items["ipAddress"],
+                    ]
                     table.append(temp)
         if "next" in response.keys():
             return response["next"], table
