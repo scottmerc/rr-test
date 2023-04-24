@@ -31,6 +31,7 @@ class SUITEST_API:
                     items["status"] != "READY"
                     and items["status"] != "CONTROLLABLE"
                     and items["status"] != "API_CONTROLLED"
+                    and items["status"] != "INTERACTIVE_MODE"
                 ):
                     temp = [
                         items["customName"],
@@ -51,6 +52,7 @@ class SUITEST_API:
                     items["status"] != "READY"
                     and items["status"] != "CONTROLLABLE"
                     and items["status"] != "API_CONTROLLED"
+                    and items["status"] != "INTERACTIVE_MODE"
                 ):
                     temp = [
                         items["customName"],
