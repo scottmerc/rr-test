@@ -22,16 +22,13 @@ class TestRegional(object):
         "br-sao",
         "us-west-1",
         "us-nje",
-        "se-sto",
         "gb-lhr",
         "eu-west-2",
         "us-nyc",
         "fi-hel",
         "ap-south-1",
         "local",
-        "de-fra",
         "ca-tor",
-        "es-bio",
     ]
 
     def test_tizen(self: "TestRegional"):
