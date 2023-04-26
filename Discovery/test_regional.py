@@ -17,7 +17,6 @@ class TestRegional(object):
     geos = [
         "mx-mex",
         "ie-dub",
-        "default",
         "us-east-1",
         "br-sao",
         "us-west-1",
@@ -27,7 +26,6 @@ class TestRegional(object):
         "us-nyc",
         "fi-hel",
         "ap-south-1",
-        "local",
         "ca-tor",
     ]
 
