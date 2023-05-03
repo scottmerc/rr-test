@@ -20,7 +20,7 @@ MakeDriver = Callable[[str], webdriver.Remote]
 DISCOVERY_ANDROID_CAPS = {
     "udid": "RF8M33Y55YM",
     "autoAcceptAlerts": True,
-    "automationName": "UiAutomator2",
+    "automationName": "UiA",
     "platformName": "Android",
     "headspin:capture.video": True,
     "newCommandTimeout": 300,
